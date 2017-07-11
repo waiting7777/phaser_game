@@ -14,6 +14,9 @@ RPG.GameState = {
 
     },
     create: function(){
+
+        this.game.OnscreenControls = this.game.plugins.add(Phaser.Plugin.OnscreenControls)
+
         this.loadLevel()
     },
     update: function(){
