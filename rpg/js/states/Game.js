@@ -15,7 +15,7 @@ RPG.GameState = {
     },
     create: function(){
 
-        this.game.OnscreenControls = this.game.plugins.add(Phaser.Plugin.OnscreenControls)
+        this.game.onscreenControls = this.game.plugins.add(Phaser.Plugin.OnscreenControls)
 
         this.loadLevel()
     },
@@ -56,9 +56,24 @@ RPG.GameState = {
 
         this.add.existing(this.player)
 
+        this.initGUI()
+
     },
     gameOver: function(){
         this.game.state.start('Game', true, false, this.currentLevel)
+    },
+    initGUI: function(){
+        this.game.onscreenControls.setup(this.player, {
+            left: true,
+            right: true,
+            up: true,
+            down: true,
+            upleft: true,
+            downleft: true,
+            upright: true,
+            downright: true,
+            action: true
+        })
     }
 
 }
