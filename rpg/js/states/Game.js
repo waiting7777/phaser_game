@@ -34,6 +34,25 @@ RPG.GameState = {
 
         this.collisionLayer.resizeWorld()
 
+        //create player
+        var playerData = {
+            //list of items
+            items: [],
+            
+            //player stats
+            health: 25,
+            attack: 12,
+            defense: 8,
+            gold: 100,
+
+            //quest
+            quests: []
+        }
+
+        this.player = new RPG.Player(this, 100, 100, playerData)
+
+        this.add.existing(this.player)
+
     },
     gameOver: function(){
         this.game.state.start('Game', true, false, this.currentLevel)
