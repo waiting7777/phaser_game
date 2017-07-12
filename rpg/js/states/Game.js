@@ -209,6 +209,10 @@ RPG.GameState = {
             player.x -= 20
         }
 
+        if(player.data.health <= 0){
+            this.gameOver()
+        }
+
     },
     loadEnmies: function(){
         var elementsArr = this.findObjectsByType('enemy', this.map, 'objectsLayer')
