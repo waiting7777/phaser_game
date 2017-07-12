@@ -24,6 +24,8 @@ RPG.Player.prototype.collectItem = function(item){
 
     if(item.data.isQuest){
         this.data.items.push(item)
+
+        this.checkQuestCompletion(item)
     }
     else{
 
@@ -34,5 +36,21 @@ RPG.Player.prototype.collectItem = function(item){
 
     }
     item.kill()
+
+}
+
+RPG.Player.prototype.checkQuestCompletion = function(item){
+
+    var i = 0
+    var len = this.data.quests.length
+
+    while(i < len){
+        if(this.data.quests[i].code == item.data.questCode){
+            this.data.quests[i].isCompleted = true
+            console.log(this.data.quests[i].name + ' completed')
+            break
+        }
+        i++
+    }
 
 }

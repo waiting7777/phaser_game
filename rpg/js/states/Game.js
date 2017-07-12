@@ -84,7 +84,18 @@ RPG.GameState = {
             gold: 100,
 
             //quest
-            quests: []
+            quests: [
+                {
+                    name: 'Find the Magic Scroll',
+                    code: 'magic-scroll',
+                    isCompleted: false
+                },
+                {
+                    name: 'Find the Helmet of the Gods',
+                    code: 'gods-helmet',
+                    isCompleted: false
+                }
+            ]
         }
 
         this.player = new RPG.Player(this, 100, 100, playerData)
