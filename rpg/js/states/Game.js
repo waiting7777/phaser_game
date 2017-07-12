@@ -23,7 +23,9 @@ RPG.GameState = {
 
         this.game.physics.arcade.collide(this.player, this.collisionLayer)
 
-        this.physics.arcade.overlap(this.player, this.items, this.collect, null, this)
+        this.game.physics.arcade.overlap(this.player, this.items, this.collect, null, this)
+
+        this.game.physics.arcade.collide(this.player, this.enemies, this.attack, null, this)
 
         this.player.body.velocity.x = 0
         this.player.body.velocity.y = 0
@@ -111,6 +113,8 @@ RPG.GameState = {
         this.enemy = new RPG.Enemy(this, 200, 60, 'monster', {attack: 10, health: 20, defense: 5})
         this.enemies.add(this.enemy)
 
+        this.battle = new RPG.Battle(this.game)
+
         this.game.camera.follow(this.player)
 
         this.initGUI()
@@ -144,14 +148,17 @@ RPG.GameState = {
         this.goldIcon = this.add.sprite(10, 10, 'coin')
         this.goldIcon.fixedToCamera = true
         this.goldLabel = this.add.text(30, 10, '0', style)
+        this.goldLabel.fixedToCamera = true
 
         this.attackIcon = this.add.sprite(70, 10, 'sword')
         this.attackIcon.fixedToCamera = true
         this.attackLabel = this.add.text(90, 10, '0', style)
+        this.attackLabel.fixedToCamera = true
 
         this.shieldIcon = this.add.sprite(130, 10, 'shield')
         this.shieldIcon.fixedToCamera = true
         this.shieldLabel = this.add.text(150, 10, '0', style)
+        this.shieldLabel.fixedToCamera = true
 
         this.refreshStats()
 
@@ -184,6 +191,25 @@ RPG.GameState = {
             elementObj = new RPG.Item(this, element.x, element.y, element.properties.asset, element.properties)
             this.items.add(elementObj)
         }, this)
+    },
+    attack: function(player, enemy){
+
+        this.battle.attack(player, enemy)
+        this.battle.attack(enemy, player)
+
+        if(player.body.touching.up){
+            player.y += 20
+        }
+        if(player.body.touching.down){
+            player.y -= 20
+        }
+        if(player.body.touching.left){
+            player.x += 20
+        }
+        if(player.body.touching.right){
+            player.x -= 20
+        }
+
     }
 
 }
