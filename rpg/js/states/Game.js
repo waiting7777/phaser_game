@@ -110,8 +110,7 @@ RPG.GameState = {
 
         this.enemies = this.add.group()
         
-        this.enemy = new RPG.Enemy(this, 200, 60, 'monster', {attack: 10, health: 20, defense: 5})
-        this.enemies.add(this.enemy)
+        this.loadEnmies()
 
         this.battle = new RPG.Battle(this.game)
 
@@ -210,6 +209,15 @@ RPG.GameState = {
             player.x -= 20
         }
 
-    }
+    },
+    loadEnmies: function(){
+        var elementsArr = this.findObjectsByType('enemy', this.map, 'objectsLayer')
+        var elementObj
+
+        elementsArr.forEach(function(element){
+            elementObj = new RPG.Enemy(this, element.x, element.y, element.properties.asset, element.properties)
+            this.enemies.add(elementObj)
+        }, this)
+    },
 
 }
