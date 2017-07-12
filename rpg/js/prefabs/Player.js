@@ -34,6 +34,8 @@ RPG.Player.prototype.collectItem = function(item){
         this.data.defense += item.data.defense ? item.data.defense : 0
         this.data.gold += item.data.gold ? item.data.gold : 0
 
+        this.state.refreshStats()
+
     }
     item.kill()
 
