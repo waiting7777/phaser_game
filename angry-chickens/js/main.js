@@ -1,4 +1,4 @@
-var Achicken = AchickenRPG || {}
+var Achicken = Achicken || {}
 
 Achicken.game = new Phaser.Game(1080, 640, Phaser.AUTO)
 
