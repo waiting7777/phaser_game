@@ -6,7 +6,7 @@ RPG.Player = function(state, x, y, data){
 
     this.state = state
     this.game = state.game
-    this.data = data
+    this.data = Object.create(data)
     this.anchor.setTo(0.5)
 
     //walking animation

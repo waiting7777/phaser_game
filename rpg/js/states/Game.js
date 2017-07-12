@@ -143,6 +143,7 @@ RPG.GameState = {
     },
     collect: function(player, item){
         this.player.collectItem(item)
+        this.player.refreshHealthbar()
     },
     showPlayerIcons: function(){
 
