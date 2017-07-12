@@ -259,3 +259,7 @@ Phaser.Plugin.OnscreenControls.prototype.setup = function(player, buttons){
         }, this);
     }
 }
+
+Phaser.Plugin.OnscreenControls.prototype.stopMovement = function(){
+    this.player.btnsPressed = {}
+}
