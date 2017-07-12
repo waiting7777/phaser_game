@@ -30,22 +30,10 @@ Achicken.GameState = {
         this.blocks.add(this.floor)
 
         this.floor.body.setCollisionGroup(this.blocksCollisionGroup)
-
         this.floor.body.collides([this.blocksCollisionGroup, this.enemiesCollisionGroup])
-
         this.floor.body.static = true
 
-        this.box = this.add.sprite(100, 100, 'box')
-        this.blocks.add(this.box)
-
-        this.box.body.setCollisionGroup(this.blocksCollisionGroup)
-        this.box.body.collides(this.blocksCollisionGroup)
-
-        var box2 = this.add.sprite(120, 200, 'box')
-        this.blocks.add(box2)
-
-        box2.body.setCollisionGroup(this.blocksCollisionGroup)
-        box2.body.collides(this.blocksCollisionGroup)
+        this.loadLevel()
 
     },
     update: function(){
@@ -53,6 +41,25 @@ Achicken.GameState = {
     },
     gameOver: function(){
         this.game.state.start('Game', true, false, this.currentLevel)
+    },
+    loadLevel: function(){
+        this.levelData = JSON.parse(this.game.cache.getText(this.currentLevel))
+
+        this.levelData.blocks.forEach(function(block){
+            this.createBlock(block)
+        }, this)
+    },
+    createBlock: function(data){
+        var block = new Phaser.Sprite(this.game, data.x, data.y, data.asset)
+        this.blocks.add(block)
+
+        block.body.mass = data.mass
+
+        block.body.setCollisionGroup(this.blocksCollisionGroup)
+
+        block.body.collides([this.blocksCollisionGroup, this.enemiesCollisionGroup])
+
+        return block
     }
 
 }
