@@ -33,7 +33,7 @@ HTown.GameState = {
 
     },
     update: function(){
-        if(!this.isDraggingMapBlock){
+        if(!this.isDraggingMapBlocked){
             if(!this.isDraggingMap){
                 if(this.game.input.activePointer.isDown){
                     this.isDraggingMap = true
@@ -92,6 +92,18 @@ HTown.GameState = {
         this.jobsLabel = this.add.text(315, 15, '0', style)
         this.jobsLabel.fixedToCamera = true
 
+        this.buttonData = JSON.parse(this.game.cache.getText('buttonData'))
+
+        this.buttons = this.add.group()
+        var button
+        this.buttonData.forEach(function(element, index){
+            button = new Phaser.Button(this.game, this.game.width - 60 - 60 * index, this.game.height - 60, element.btnAsset, this.clickBuildBtn, this)
+            button.fixedToCamera = true
+            this.buttons.add(button)
+
+            button.buildingData = element
+        }, this)
+
         this.refreshStats()
 
     },
@@ -100,6 +112,23 @@ HTown.GameState = {
         this.foodLabel.text = Math.round(this.town.stats.food)
         this.populationLabel.text = Math.round(this.town.stats.population) + '/' + Math.round(this.town.stats.housing)
         this.jobsLabel.text = Math.round(this.town.stats.jobs)
+    },
+    clickBuildBtn: function(button){
+        this.clearSelection()
+
+        if(this.town.stats.money >= button.buildingData.cost){
+            button.alpha = 0.5
+            this.selectedBuilding = button.buildingData
+            this.isBuildingBtnActive = true
+        }
+    },
+    clearSelection: function(){
+        this.isDraggingMapBlocked = false
+        this.isDraggingMap = false
+        this.isBuildingBtnActive = false
+        this.selectionBuilding = null
+
+        this.buttons.setAll('alpha', 1)
     }
 
 }
