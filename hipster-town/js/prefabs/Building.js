@@ -7,6 +7,10 @@ HTown.Building = function(state, x, y, data){
     this.game = state.game
     this.state = state
 
+    this.food = data.food
+    this.jobs = data.jobs
+    this.housing = data.housing
+
     this.anchor.setTo(0.5)
 
     this.game.physics.arcade.enable(this)

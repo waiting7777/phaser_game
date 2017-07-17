@@ -4,7 +4,7 @@ HTown.TownModel = function(coefs, initialStats, buildings){
 
     this.coefs = {}
     this.coefs.populationGrowth = this.coefs.populationGrowth || 1.02
-    this.coefs.foodConsumption = this.coefs.foodConsumption || 5
+    this.coefs.foodConsumption = this.coefs.foodConsumption || 1
     this.coefs.productivityPerPerson = this.coefs.productivityPerPerson || 0.5
 
     this.stats = {}
