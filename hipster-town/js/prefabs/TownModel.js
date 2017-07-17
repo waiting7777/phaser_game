@@ -13,6 +13,7 @@ HTown.TownModel = function(coefs, initialStats, buildings){
     this.stats.money = initialStats.money
 
     this.buildings = buildings
+    this.updateBuildingProduction()
 
 }
 
