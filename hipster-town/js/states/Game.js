@@ -59,6 +59,34 @@ HTown.GameState = {
                 }
             }
         }
+
+        if(this.isBuildingBtnActive && this.game.input.activePointer.isDown){
+            this.isDraggingMapBlocked = true
+            this.isDraggingBuilding = true
+        }
+
+        if(this.isDraggingBuilding){
+            var pointerWX = this.game.input.activePointer.worldX
+            var pointerWY = this.game.input.activePointer.worldY
+
+            if(!this.shadowBuilding || !this.shadowBuilding.alive){
+                this.shadowBuilding = this.add.sprite(pointerWX, pointerWY, this.selectedBuilding.asset)
+                this.shadowBuilding.alpha = 0.5
+                this.shadowBuilding.anchor.setTo(0.5)
+            }
+
+            this.shadowBuilding.x = pointerWX
+            this.shadowBuilding.y = pointerWY
+        }
+
+        if(this.isDraggingBuilding && this.game.input.activePointer.isUp){
+
+            this.town.stats.cost -= this.selectedBuilding
+            this.createBuilding(this.game.input.activePointer.worldX, this.game.input.activePointer.worldY, this.selectedBuilding)
+
+            this.clearSelection()
+        }
+
     },
     simulationStep: function(){
         this.town.step()
@@ -127,8 +155,19 @@ HTown.GameState = {
         this.isDraggingMap = false
         this.isBuildingBtnActive = false
         this.selectionBuilding = null
+        this.isDraggingBuilding = false
+
+        if(this.shadowBuilding){
+            this.shadowBuilding.kill()
+        }
+
+        this.refreshStats()
 
         this.buttons.setAll('alpha', 1)
+    },
+    createBuilding: function(x, y, data){
+        var newBuilding = new HTown.Building(this, x, y, data)
+        this.buildings.add(newBuilding)
     }
 
 }
