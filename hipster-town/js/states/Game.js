@@ -33,7 +33,32 @@ HTown.GameState = {
 
     },
     update: function(){
+        if(!this.isDraggingMapBlock){
+            if(!this.isDraggingMap){
+                if(this.game.input.activePointer.isDown){
+                    this.isDraggingMap = true
 
+                    this.startDragPoint = {}
+                    this.startDragPoint.x = this.game.input.activePointer.position.x
+                    this.startDragPoint.y = this.game.input.activePointer.position.y
+                }
+            }
+            else{
+                this.endDragPoint = {}
+                this.endDragPoint.x = this.game.input.activePointer.position.x
+                this.endDragPoint.y = this.game.input.activePointer.position.y
+
+                this.game.camera.x += this.startDragPoint.x - this.endDragPoint.x
+                this.game.camera.y += this.startDragPoint.y - this.endDragPoint.y
+
+                this.startDragPoint.x = this.game.input.activePointer.position.x
+                this.startDragPoint.y = this.game.input.activePointer.position.y
+
+                if(this.game.input.activePointer.isUp){
+                    this.isDraggingMap = false
+                }
+            }
+        }
     },
     simulationStep: function(){
         this.town.step()
