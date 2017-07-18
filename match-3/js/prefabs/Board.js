@@ -96,3 +96,49 @@ Match3.Board.prototype.checkAdjacent = function(source, target){
 
     return isAdjacent
 }
+
+Match3.Board.prototype.isChained = function(block){
+    var isChained = false
+    var variation = this.grid[block.row][block.col]
+    var row = block.row
+    var col = block.col
+
+    //left
+    if(variation == this.grid[row][col - 1] && variation == this.grid[row][col - 2]){
+        isChained = true
+    }
+
+    //right
+    if(variation == this.grid[row][col + 1] && variation == this.grid[row][col + 2]){
+        isChained = true
+    }
+
+    //up
+    if(this.grid[row-2]){
+        if(variation == this.grid[row - 1][col] && variation == this.grid[row - 2][col]){
+            isChained = true
+        }
+    }
+
+    //down
+    if(this.grid[row+2]){
+        if(variation == this.grid[row + 1][col] && variation == this.grid[row + 2][col]){
+            isChained = true
+        }
+    }
+
+    //center - horizontal
+    if(variation == this.grid[row][col-1] && variation == this.grid[row][col + 1]){
+        isChained = true
+    }
+
+    //center - vertical
+    if(this.grid[row+1] && this.grid[row-1]){
+        if(variation == this.grid[row+1][col] && variation == this.grid[row-1][col]){
+            isChained = true
+        }
+    }
+
+    return isChained
+
+}
