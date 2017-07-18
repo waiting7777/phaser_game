@@ -142,3 +142,19 @@ Match3.Board.prototype.isChained = function(block){
     return isChained
 
 }
+
+Match3.Board.prototype.findAllChains = function(){
+    var chained = []
+    var i, j
+
+    for(i=0;i<this.rows;i++){
+        for(j=0;j<this.cols;j++){
+            if(this.isChained({row: i, col: j})){
+                chained.push({row: i, col: j})
+            }
+        }
+    }
+
+    console.log(chained)
+    return chained
+}
