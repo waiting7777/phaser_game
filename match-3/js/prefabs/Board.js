@@ -155,6 +155,13 @@ Match3.Board.prototype.findAllChains = function(){
         }
     }
 
-    console.log(chained)
     return chained
+}
+
+Match3.Board.prototype.clearChains = function(){
+    var chainedBlocks = this.findAllChains()
+
+    chainedBlocks.forEach(function(block){
+        this.grid[block.row][block.col] = 0
+    }, this)
 }
