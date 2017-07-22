@@ -6,6 +6,8 @@ Match3.Block = function(state, x, y, data){
 
     this.game = state.game
     this.state = state
+    this.row = data.row
+    this.col = data.col
 
     this.anchor.setTo(0.5)
 
@@ -20,4 +22,14 @@ Match3.Block.prototype.reset = function(x, y, data){
 
     this.row = data.row
     this.col = data.col
+}
+
+Match3.Block.prototype.kill = function(){
+    this.loadTexture('deadBlock')
+    this.col = null
+    this.row = null
+
+    this.game.time.events.add(this.state.ANIMATION_TIME/2, function(){
+        Phaser.Sprite.prototype.kill.call(this)
+    }, this)
 }

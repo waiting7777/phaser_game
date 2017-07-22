@@ -55,6 +55,28 @@ Match3.GameState = {
             }
         }
         this.game.world.bringToTop(this.blocks)
+    },
+    getBlockFromColRow: function(position){
+        var foundBlock
+
+        this.blocks.forEachAlive(function(block){
+            console.log(block, position)
+            if(block.row === position.row && block.col === position.col){
+                foundBlock = block
+            }
+        }, this)
+        console.log(foundBlock)
+        return foundBlock
+    },
+    dropBlock: function(sourceRow, targetRow, col){
+        var block = this.getBlockFromColRow({row: sourceRow, col: col})
+        var targetY = 150 + targetRow * (this.BLOCK_SIZE + 6)
+
+        block.row = targetRow
+
+        var blockMovement = this.game.add.tween(block)
+        blockMovement.to({y: targetY}, this.ANIMATION_TIME)
+        blockMovement.start()
     }
 
 }

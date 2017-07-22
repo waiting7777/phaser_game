@@ -21,7 +21,7 @@ Match3.Board = function(state, rows, cols, blockVariations){
 
     this.reserveGrid = []
 
-    this.RESERVE_ROW = 5
+    this.RESERVE_ROW = rows
 
     for(i=0;i < this.RESERVE_ROW; i++){
         this.reserveGrid.push([])
@@ -163,12 +163,16 @@ Match3.Board.prototype.clearChains = function(){
 
     chainedBlocks.forEach(function(block){
         this.grid[block.row][block.col] = 0
+        console.log(block)
+        this.state.getBlockFromColRow(block).kill()
     }, this)
 }
 
 Match3.Board.prototype.dropBlock = function(sourceRow, targetRow, col){
     this.grid[targetRow][col] = this.grid[sourceRow][col]
     this.grid[sourceRow][col] = 0
+
+    this.state.dropBlock(sourceRow, targetRow, col)
 }
 
 Match3.Board.prototype.dropReserveBlock = function(sourceRow, targetRow, col){
