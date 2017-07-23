@@ -39,13 +39,13 @@ HexGame.Board = function(state, grid){
 
             tile.inputEnabled = true
             tile.input.pixelPerfectClick = true
-            tile.events.onInputDown.add(function(tile){
-                var adj = this.getAdjacent(tile, true)
+            // tile.events.onInputDown.add(function(tile){
+            //     var adj = this.getAdjacent(tile, true)
 
-                adj.forEach(function(t){
-                    t.alpha = 0.3
-                }, this)
-            }, this)
+            //     adj.forEach(function(t){
+            //         t.alpha = 0.3
+            //     }, this)
+            // }, this)
 
             this.add(tile)
 

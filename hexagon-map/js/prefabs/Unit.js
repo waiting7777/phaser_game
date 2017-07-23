@@ -19,3 +19,24 @@ HexGame.Unit = function(state, data){
 
 HexGame.Unit.prototype = Object.create(Phaser.Sprite.prototype)
 HexGame.Unit.prototype.constructor = HexGame.Unit
+
+HexGame.Unit.prototype.showMovementOptions = function(){
+    if(this.state.uiBlocked){
+        return
+    }
+
+    var currTile = this.board.getFromRowCol(this.row, this.col)
+
+    var adjacentCells = this.board.getAdjacent(currTile, true)
+
+    adjacentCells.forEach(function(tile){
+        
+        tile.alpha = 0.7
+
+        tile.events.onInputDown.add(this.moveUnit, this)
+    }, this)
+}
+
+HexGame.Unit.prototype.moveUnit = function(){
+    console.log('move unit')
+}
