@@ -14,6 +14,10 @@ HexGame.Unit = function(state, data){
     this.data = data
 
     this.anchor.setTo(-0.1, -0.25)
+
+    this.inputEnabled = true
+    this.input.pixelPerfectClick = true
+    this.events.onInputDown.add(this.showMovementOptions, this)
     
 }
 
@@ -21,6 +25,9 @@ HexGame.Unit.prototype = Object.create(Phaser.Sprite.prototype)
 HexGame.Unit.prototype.constructor = HexGame.Unit
 
 HexGame.Unit.prototype.showMovementOptions = function(){
+
+    this.state.clearSelection()
+
     if(this.state.uiBlocked){
         return
     }
@@ -37,6 +44,20 @@ HexGame.Unit.prototype.showMovementOptions = function(){
     }, this)
 }
 
-HexGame.Unit.prototype.moveUnit = function(){
-    console.log('move unit')
+HexGame.Unit.prototype.moveUnit = function(tile){
+    this.state.clearSelection()
+
+    this.state.uiBlocked = true
+
+    var pos = this.board.getXYFromRowCol(tile.row, tile.col)
+
+    var unitMovement = this.game.add.tween(this)
+    unitMovement.to(pos, 200)
+    unitMovement.onComplete.add(function(){
+        this.state.uiBlocked = false
+        this.row = tile.row
+        this.col = tile.col
+
+    }, this)
+    unitMovement.start()
 }

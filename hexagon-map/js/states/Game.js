@@ -45,6 +45,13 @@ HexGame.GameState = {
             this.enemyUnits.add(unit)
 
         }, this)
+    },
+    clearSelection: function(){
+        this.board.setAll('alpha', 1)
+
+        this.board.forEach(function(tile){
+            tile.events.onInputDown.removeAll()
+        }, this)
     }
 
 }
