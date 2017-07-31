@@ -61,3 +61,21 @@ HexGame.Unit.prototype.moveUnit = function(tile){
     }, this)
     unitMovement.start()
 }
+
+HexGame.Unit.prototype.attack = function(attacked){
+    var attacker = this
+
+    var damageAttacker = Math.max(0, attacker.data.attack * Math.random() - attacked.data.defense * Math.random())
+    var damageAttacked = Math.max(0, attacked.data.attack * Math.random() - attacker.data.defense * Math.random())
+
+    attacked.data.health -= damageAttacked
+    attacker.data.health -= damageAttacker
+
+    if(attacked.data.health <= 0){
+        attacked.kill()
+    }
+
+    if(attacker.data.health <= 0){
+        attacker.kill()
+    }
+}
