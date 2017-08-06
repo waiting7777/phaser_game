@@ -60,6 +60,8 @@ HexGame.Unit.prototype.moveUnit = function(tile){
 
         this.checkBattles()
 
+        this.state.checkGameEnd()
+
         this.state.prepareNextUnit()
 
     }, this)

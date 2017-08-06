@@ -14,11 +14,13 @@ HexGame.GameState = {
 
         this.map = JSON.parse(this.game.cache.getText('map'))
         this.board = new HexGame.Board(this, this.map.grid)
+        this.places = this.add.group()
 
         this.playerUnits = this.add.group()
         this.enemyUnits = this.add.group()
 
         this.initUnits()
+        this.initPlaces()
 
         this.newTurn()
     },
@@ -100,6 +102,35 @@ HexGame.GameState = {
         }
         else{
             this.newTurn()
+        }
+    },
+    initPlaces: function(){
+        var pos = this.board.getXYFromRowCol(this.map.playerBase.row, this.map.playerBase.col)
+        this.playerBase = new Phaser.Sprite(this.game, pos.x, pos.y, this.map.playerBase.asset)
+        this.playerBase.anchor.setTo(-0.1, -0.25)
+        this.playerBase.row = this.map.playerBase.row
+        this.playerBase.col = this.map.playerBase.col
+        this.places.add(this.playerBase)
+
+        var pos = this.board.getXYFromRowCol(this.map.enemyBase.row, this.map.enemyBase.col)
+        this.enemyBase = new Phaser.Sprite(this.game, pos.x, pos.y, this.map.enemyBase.asset)
+        this.enemyBase.anchor.setTo(-0.1, -0.25)
+        this.enemyBase.row = this.map.enemyBase.row
+        this.enemyBase.col = this.map.enemyBase.col
+        this.places.add(this.enemyBase)
+    },
+    checkGameEnd: function(){
+        var unit = this.allUnits[this.currUnitIndex - 1]
+
+        if(unit.isPlayer){
+            if(unit.row === this.enemyBase.row && unit.col === this.enemyBase.col){
+                console.log('you won')
+            }
+        }
+        else{
+            if(unit.row === this.playerBase.row && unit.col === this.playerBase.col){
+                console.log('you lose')
+            }
         }
     }
 
