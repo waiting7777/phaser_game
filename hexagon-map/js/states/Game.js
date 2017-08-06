@@ -92,7 +92,7 @@ HexGame.GameState = {
             this.currUnitIndex++
 
             if(unit.alive){
-                unit.showMovementOptions()
+                unit.playTurn()
             }
             else{
                 this.prepareNextUnit()
