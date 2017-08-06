@@ -15,9 +15,9 @@ HexGame.Unit = function(state, data){
 
     this.anchor.setTo(-0.1, -0.25)
 
-    this.inputEnabled = true
-    this.input.pixelPerfectClick = true
-    this.events.onInputDown.add(this.showMovementOptions, this)
+    // this.inputEnabled = true
+    // this.input.pixelPerfectClick = true
+    // this.events.onInputDown.add(this.showMovementOptions, this)
     
 }
 
@@ -59,6 +59,8 @@ HexGame.Unit.prototype.moveUnit = function(tile){
         this.col = tile.col
 
         this.checkBattles()
+
+        this.state.prepareNextUnit()
 
     }, this)
     unitMovement.start()
