@@ -30,6 +30,8 @@ DunCrawl.Item.prototype.collect = function(){
         this.state.playerStats.defense += this.data.defense
         this.state.playerStats.gold += this.data.gold
 
+        this.state.refreshStats()
+
         this.kill()
     }
 

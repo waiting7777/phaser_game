@@ -15,7 +15,7 @@ DunCrawl.PreloadState = {
         this.load.image('chest', 'assets/images/chest-gold.png')
         this.load.image('heart', 'assets/images/heart.png')
         this.load.image('attack', 'assets/images/attack.png')
-        this.load.image('defence', 'assets/images/defense.png')
+        this.load.image('defense', 'assets/images/defense.png')
         this.load.image('gold', 'assets/images/gold.png')
         this.load.image('profile', 'assets/images/profile.png')
         this.load.image('start', 'assets/images/start.png')
